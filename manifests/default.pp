@@ -17,7 +17,8 @@ apt::ppa { 'ppa:wnoronha/thrift':
 package { [
   'maven',
   'openjdk-7-jdk',
-  'thrift-compiler'
+  'thrift-compiler',
+  'tree'
   ]:
   ensure  => present,
   require => Exec['apt-update']

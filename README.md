@@ -7,6 +7,8 @@ $ vagrant up
 $ vagrant ssh
 
 vagrant$ mvn test
+vagrant$ tree src/
+vagrant$ tree target/generated-sources/
 ```
 
 # REQUIREMENTS
