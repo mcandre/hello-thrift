@@ -16,6 +16,32 @@ Thrift provides several standard tools out of the box, saving developers from re
 
 This project is a small demonstration of what Thrift has to offer. We will use a Maven Java project, although Thrift supports many more programming languages.
 
+In this scenario, we're developing a digital platform for marketing headphones.
+
+```
+vagrant$ mvn package
+...
+
+vagrant$ bin/ad
+This week only, buy Bose's elite headphones 50% off, at 125.0!
+Hurry before we're sold out, we only have 10 left!
+Get them now at http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp
+Customers remark, "Works on my machine." !
+```
+
+Check out the source if you like:
+
+```
+vagrant$ tree bin/
+vagrant$ cat bin/ad
+...
+
+vagrant$ tree src/main/java/
+...
+vagrant$ cat src/main/java/us/yellosoft/hello/HeadphonesAdvertiser.java
+...
+```
+
 # REQUIREMENTS
 
 * [Vagrant](http://www.vagrantup.com/)
@@ -105,20 +131,6 @@ $ open target/site/apidocs/index.html
 Or look at some example usage snippets in our main Java sources and JUnit tests:
 
 ```
-vagrant$ mvn package
-...
-
-vagrant$ bin/ad
-This week only, buy Bose's elite headphones 50% off, at 125.0!
-Hurry before we're sold out, we only have 10 left!
-Get them now at http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp
-Customers remark, "Works on my machine." !
-
-vagrant$ tree src/main/java/
-...
-vagrant$ cat src/main/java/us/yellosoft/hello/HeadphonesAdvertiser.java
-...
-
 vagrant$ mvn test
 ...
 
