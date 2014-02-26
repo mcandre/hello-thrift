@@ -104,7 +104,10 @@ As a bonus, we wrote some plugin configuration to show how linting and code cove
 
 ## Linting
 
-We start with the Java compiler (`javac`) option to check for additional warnings at compile time with `-Xlint:all`. This Maven project is configured to do this automatically:
+Tthe Java compiler `javac` offers a valuable option to check for additional warnings at compile time with `-Xlint:all`. This Maven project is configured to do this automatically.
+
+We could manually lint each `.java` file with `javac -Xlint:all`, but for medium to large projects, it's better to use Maven to do this over all Java files:
+
 
 ```
 vagrant$ mvn compile
