@@ -1,4 +1,4 @@
-# hello-thrift - a minimal introduction to Thrift
+# hello-thrift - an example Maven project using Thrift
 
 # EXAMPLE
 
