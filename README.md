@@ -16,6 +16,8 @@ Thrift provides several standard tools out of the box, saving developers from re
 
 This project is a small demonstration of what Thrift has to offer. We will use a Maven Java project, although Thrift supports many more programming languages.
 
+## Mad Men
+
 In this scenario, we're developing a digital platform for marketing headphones.
 
 ```
