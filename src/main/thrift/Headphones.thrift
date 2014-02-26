@@ -1,7 +1,7 @@
 namespace * us.yellosoft.thrift
 
 struct Headphones {
-  0: string brand;   /* Brand name */
-  1: i32 quantity; /* Non-negative */
-  2: double price;   /* USD */
+  1: required string brand;   /* Brand name */
+  2: required i32 quantity; /* Non-negative */
+  3: required double price;   /* USD */
 }
