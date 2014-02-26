@@ -15,6 +15,7 @@ public class HeadphonesTest {
   private static final int QUANTITY = 1;
   private static final double PRICE = 249.95;
   private static final String URL = "http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp";
+  private static final String REVIEW = "Works on my machine!";
 
   private static Headphones h;
 
@@ -31,6 +32,7 @@ public class HeadphonesTest {
     h.setQuantity(QUANTITY);
     h.setPrice(PRICE);
     h.setUrl(URL);
+    h.setReview(REVIEW);
 
     byteSerializer = new TSerializer();
     byteDeserializer = new TDeserializer();
@@ -46,6 +48,14 @@ public class HeadphonesTest {
     assertEquals(h.getBrand(), BRAND);
     assertEquals(h.getQuantity(), QUANTITY);
     assertEquals(h.getPrice(), PRICE, 0.0);
+    assertEquals(h.getUrl(), URL);
+    assertEquals(h.getReview(), REVIEW);
+
+    h.unsetReview();
+    assertEquals(h.getReview(), null);
+
+    h.setReview(REVIEW);
+    assertEquals(h.getReview(), REVIEW);
   }
 
   @Test
@@ -80,6 +90,7 @@ public class HeadphonesTest {
     h2.setQuantity(QUANTITY);
     h2.setPrice(PRICE);
     // optional url omitted
+    h2.setReview(REVIEW);
 
     try {
       final byte[] byteArray = byteSerializer.serialize(h2);
@@ -97,6 +108,7 @@ public class HeadphonesTest {
     h3.setQuantity(QUANTITY);
     h3.setPrice(PRICE);
     h3.setUrl(URL);
+    h3.setReview(REVIEW);
 
     try {
       final byte[] byteArray = byteSerializer.serialize(h3);
@@ -114,6 +126,7 @@ public class HeadphonesTest {
     h4.setQuantity(QUANTITY);
     h4.setPrice(PRICE);
     h4.setUrl(URL);
+    h4.setReview(REVIEW);
 
     try {
       final byte[] byteArray = byteSerializer.serialize(h4);
@@ -131,6 +144,7 @@ public class HeadphonesTest {
     h5.unsetQuantity(); // Thrift-Java bug: unset primitives are still serialized
     h5.setPrice(PRICE);
     h5.setUrl(URL);
+    h5.setReview(REVIEW);
 
     try {
       final byte[] byteArray = byteSerializer.serialize(h5);
