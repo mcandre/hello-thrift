@@ -13,7 +13,8 @@ import static org.junit.Assert.assertEquals;
 public class HeadphonesTest {
   private static final String brand = "Bose";
   private static final int quantity = 1;
-  private static final double price = 250.0;
+  private static final double price = 249.95;
+  private static final String url = "http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp";
 
   private static Headphones h;
 
@@ -29,6 +30,7 @@ public class HeadphonesTest {
     h.setBrand(brand);
     h.setQuantity(quantity);
     h.setPrice(price);
+    h.setUrl(url);
 
     byteSerializer = new TSerializer();
     byteDeserializer = new TDeserializer();
@@ -70,4 +72,66 @@ public class HeadphonesTest {
 
     assertEquals(h2, h);
   }
+
+  @Test
+  public void optionalsTest() throws Exception {
+    final Headphones h2 = new Headphones();
+    h2.setBrand(brand);
+    h2.setQuantity(quantity);
+    h2.setPrice(price);
+    // optional url omitted
+
+    try {
+      byte[] byteArray = byteSerializer.serialize(h2);
+      final Headphones h0 = new Headphones();
+      byteDeserializer.deserialize(h0, byteArray);
+    }
+    catch (TException e) {
+      throw new Exception(e);
+    }
+
+    final Headphones h3 = new Headphones();
+    // required brand defaulted
+    h3.setQuantity(quantity);
+    h3.setPrice(price);
+    h3.setUrl(url);
+
+    try {
+      byte[] byteArray = byteSerializer.serialize(h3);
+      final Headphones h0 = new Headphones();
+      byteDeserializer.deserialize(h0, byteArray);
+    }
+    catch (TException e) {
+      throw new Exception(e);
+    }
+
+    final Headphones h4 = new Headphones();
+    h4.unsetBrand(); // required field omitted
+    h4.setQuantity(quantity);
+    h4.setPrice(price);
+    h4.setUrl(url);
+
+    try {
+      byte[] byteArray = byteSerializer.serialize(h4);
+      final Headphones h0 = new Headphones();
+      byteDeserializer.deserialize(h0, byteArray);
+      assertEquals(true, false);
+    }
+    catch (TException e) { }
+
+    final Headphones h5 = new Headphones();
+    h5.setBrand(brand);
+    h5.unsetQuantity(); // Thrift-Java bug: unset primitives are still serialized
+    h5.setPrice(price);
+    h5.setUrl(url);
+
+    try {
+      byte[] byteArray = byteSerializer.serialize(h5);
+      final Headphones h0 = new Headphones();
+      byteDeserializer.deserialize(h0, byteArray);
+    }
+    catch (TException e) {
+      throw new Exception(e);
+    }
+  }    
 }
