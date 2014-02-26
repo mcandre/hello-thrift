@@ -18,7 +18,7 @@ This project is a small demonstration of what Thrift has to offer. We will use a
 
 ## Mad Men
 
-In this scenario, we're developing a digital platform for marketing headphones.
+In this scenario, we're developing a digital platform for marketing headphones to command line users, an oft-forgotten source of revenue.
 
 ```
 vagrant$ mvn package
