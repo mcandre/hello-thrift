@@ -15,3 +15,16 @@ vagrant$ tree target/generated-sources/
 
 * [Vagrant](http://www.vagrantup.com/)
 * [VirtualBox](https://www.virtualbox.org/)
+
+# DEVELOPMENT
+
+## Linting
+
+Keep the code tidy:
+
+```
+vagrant$ mvn compile
+vagrant$ mvn test-compile
+vagrant$ mvn checkstyle:checkstyle
+vagrant$ mvn pmd:check
+```

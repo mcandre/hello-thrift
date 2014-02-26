@@ -11,10 +11,10 @@ import org.junit.BeforeClass;
 import static org.junit.Assert.assertEquals;
 
 public class HeadphonesTest {
-  private static final String brand = "Bose";
-  private static final int quantity = 1;
-  private static final double price = 249.95;
-  private static final String url = "http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp";
+  private static final String BRAND = "Bose";
+  private static final int QUANTITY = 1;
+  private static final double PRICE = 249.95;
+  private static final String URL = "http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp";
 
   private static Headphones h;
 
@@ -27,10 +27,10 @@ public class HeadphonesTest {
   @BeforeClass
   public static void setupTest() {
     h = new Headphones();
-    h.setBrand(brand);
-    h.setQuantity(quantity);
-    h.setPrice(price);
-    h.setUrl(url);
+    h.setBrand(BRAND);
+    h.setQuantity(QUANTITY);
+    h.setPrice(PRICE);
+    h.setUrl(URL);
 
     byteSerializer = new TSerializer();
     byteDeserializer = new TDeserializer();
@@ -43,16 +43,16 @@ public class HeadphonesTest {
 
   @Test
   public void constructorTest() {
-    assertEquals(h.getBrand(), brand);
-    assertEquals(h.getQuantity(), quantity);
-    assertEquals(h.getPrice(), price, 0.0);
+    assertEquals(h.getBrand(), BRAND);
+    assertEquals(h.getQuantity(), QUANTITY);
+    assertEquals(h.getPrice(), PRICE, 0.0);
   }
 
   @Test
   public void defaultsTest() {
     final Headphones h2 = new Headphones();
 
-    assertEquals(h2.getBrand(), brand);
+    assertEquals(h2.getBrand(), BRAND);
   }
 
   @Test
@@ -76,15 +76,17 @@ public class HeadphonesTest {
   @Test
   public void optionalsTest() throws Exception {
     final Headphones h2 = new Headphones();
-    h2.setBrand(brand);
-    h2.setQuantity(quantity);
-    h2.setPrice(price);
+    h2.setBrand(BRAND);
+    h2.setQuantity(QUANTITY);
+    h2.setPrice(PRICE);
     // optional url omitted
 
     try {
-      byte[] byteArray = byteSerializer.serialize(h2);
+      final byte[] byteArray = byteSerializer.serialize(h2);
       final Headphones h0 = new Headphones();
       byteDeserializer.deserialize(h0, byteArray);
+
+      assertEquals(h0, h2);
     }
     catch (TException e) {
       throw new Exception(e);
@@ -92,14 +94,16 @@ public class HeadphonesTest {
 
     final Headphones h3 = new Headphones();
     // required brand defaulted
-    h3.setQuantity(quantity);
-    h3.setPrice(price);
-    h3.setUrl(url);
+    h3.setQuantity(QUANTITY);
+    h3.setPrice(PRICE);
+    h3.setUrl(URL);
 
     try {
-      byte[] byteArray = byteSerializer.serialize(h3);
+      final byte[] byteArray = byteSerializer.serialize(h3);
       final Headphones h0 = new Headphones();
       byteDeserializer.deserialize(h0, byteArray);
+
+      assertEquals(h0, h3);
     }
     catch (TException e) {
       throw new Exception(e);
@@ -107,28 +111,33 @@ public class HeadphonesTest {
 
     final Headphones h4 = new Headphones();
     h4.unsetBrand(); // required field omitted
-    h4.setQuantity(quantity);
-    h4.setPrice(price);
-    h4.setUrl(url);
+    h4.setQuantity(QUANTITY);
+    h4.setPrice(PRICE);
+    h4.setUrl(URL);
 
     try {
-      byte[] byteArray = byteSerializer.serialize(h4);
+      final byte[] byteArray = byteSerializer.serialize(h4);
       final Headphones h0 = new Headphones();
       byteDeserializer.deserialize(h0, byteArray);
+
       assertEquals(true, false);
     }
-    catch (TException e) { }
+    catch (TException e) {
+      assertEquals(true, true);
+    }
 
     final Headphones h5 = new Headphones();
-    h5.setBrand(brand);
+    h5.setBrand(BRAND);
     h5.unsetQuantity(); // Thrift-Java bug: unset primitives are still serialized
-    h5.setPrice(price);
-    h5.setUrl(url);
+    h5.setPrice(PRICE);
+    h5.setUrl(URL);
 
     try {
-      byte[] byteArray = byteSerializer.serialize(h5);
+      final byte[] byteArray = byteSerializer.serialize(h5);
       final Headphones h0 = new Headphones();
       byteDeserializer.deserialize(h0, byteArray);
+
+      assertEquals(h0, h5);
     }
     catch (TException e) {
       throw new Exception(e);
