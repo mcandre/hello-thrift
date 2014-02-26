@@ -108,7 +108,7 @@ Or look at some example usage snippets in our main Java sources and JUnit tests:
 vagrant$ mvn package
 ...
 
-vagrant$ mvn -q exec:java -Dexec.mainClass=us.yellosoft.hello.HeadphonesAdvertiser
+vagrant$ bin/ad
 This week only, buy Bose's elite headphones 50% off, at 125.0!
 Hurry before we're sold out, we only have 10 left!
 Get them now at http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp
