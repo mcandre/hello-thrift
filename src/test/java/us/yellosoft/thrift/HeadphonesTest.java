@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import static org.junit.Assert.assertEquals;
 
 public class HeadphonesTest {
-  private static final String brand = "Brand";
+  private static final String brand = "Bose";
   private static final int quantity = 1;
   private static final double price = 250.0;
 
@@ -44,6 +44,13 @@ public class HeadphonesTest {
     assertEquals(h.getBrand(), brand);
     assertEquals(h.getQuantity(), quantity);
     assertEquals(h.getPrice(), price, 0.0);
+  }
+
+  @Test
+  public void defaultsTest() {
+    final Headphones h2 = new Headphones();
+
+    assertEquals(h2.getBrand(), brand);
   }
 
   @Test
