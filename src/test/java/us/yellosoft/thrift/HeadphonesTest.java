@@ -2,6 +2,8 @@ package us.yellosoft.thrift;
 
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.TDeserializer;
+import org.apache.thrift.protocol.TProtocolFactory;
+import org.apache.thrift.protocol.TJSONProtocol;
 import org.apache.thrift.TException;
 
 import org.junit.Test;
@@ -14,8 +16,12 @@ public class HeadphonesTest {
   private static final double price = 250.0;
 
   private static Headphones h;
-  private static TSerializer serializer;
-  private static TDeserializer deserializer;
+
+  private static TSerializer byteSerializer;
+  private static TDeserializer byteDeserializer;
+
+  private static TSerializer jsonSerializer;
+  private static TDeserializer jsonDeserializer;
 
   @BeforeClass
   public static void setupTest() {
@@ -24,8 +30,13 @@ public class HeadphonesTest {
     h.setQuantity(quantity);
     h.setPrice(price);
 
-    serializer = new TSerializer();
-    deserializer = new TDeserializer();
+    byteSerializer = new TSerializer();
+    byteDeserializer = new TDeserializer();
+
+    final TProtocolFactory jsonProtocolFactory = new TJSONProtocol.Factory();
+
+    jsonSerializer = new TSerializer(jsonProtocolFactory);
+    jsonDeserializer = new TDeserializer(jsonProtocolFactory);
   }
 
   @Test
@@ -36,10 +47,19 @@ public class HeadphonesTest {
   }
 
   @Test
-  public void serializationTest() throws TException {
-    final byte[] byteArray = serializer.serialize(h);
+  public void byteSerializationTest() throws TException {
+    final byte[] byteArray = byteSerializer.serialize(h);
     final Headphones h2 = new Headphones();
-    deserializer.deserialize(h2, byteArray);
+    byteDeserializer.deserialize(h2, byteArray);
+
+    assertEquals(h2, h);
+  }
+
+  @Test
+  public void jsonSerializationTest() throws TException {
+    final String json = jsonSerializer.toString(h);
+    final Headphones h2 = new Headphones();
+    jsonDeserializer.fromString(h2, json);
 
     assertEquals(h2, h);
   }
