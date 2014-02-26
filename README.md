@@ -29,13 +29,18 @@ Once Vagrant and VirtualBox are installed, use Vagrant to setup a virtual machin
 
 ```
 $ vagrant up
+...
+
 $ vagrant ssh
+
+vagrant$
 ```
 
 For the curious, you can examine `manifests/default.pp` to see the dependency packages that Vagrant installed in the vm.
 
 ```
 vagrant$ cat manifests/default.pp
+...
 ```
 
 Feel free to use your host computer instead of Vagrant, installing the dependency packages manually, treating `vagrant$` as your computer's terminal prompt. Note, however, that the dependency package names may vary between package mangers. E.g. [Apt](https://wiki.debian.org/Apt) `thrift-compiler` = [Homebrew](http://brew.sh/) `thrift` = [Chocolatey](http://chocolatey.org/) `thrift`.
@@ -46,6 +51,7 @@ We start by looking at the overall project organization.
 
 ```
 vagrant$ tree src/
+...
 ```
 
 `src/main/thrift/` contains `.thrift` definition files, defining the fields of our network data. Although this project is in Java, we could copy the `.thrift` files into a project in a different language, like Ruby, and they would behave the same way.
@@ -54,7 +60,18 @@ Now that we have `.thrift` definitions for our data, we can convert them into `.
 
 ```
 vagrant$ mvn generate-sources
+...
+
 vagrant$ tree target/generated-sources/
+target/generated-sources/
+└── gen-java
+    └── us
+        └── yellosoft
+            └── hello
+                └── thrift
+                    └── Headphones.java
+
+5 directories, 1 file
 ```
 
 We could have manually run `thrift --gen ...` to do this, though Maven wouldn't know where to look for the generated `.java` code when it comes time to compile.
@@ -69,6 +86,7 @@ Normal `.java` -> `.class` bytecode is kept in `target/classes/`, but our `.thri
 
 ```
 vagrant$ cat pom.xml
+...
 ```
 
 ## API docs
@@ -77,17 +95,37 @@ Now that we've got fully realized Thrift structures in Java, how do we interact 
 
 ```
 vagrant$ mvn javadoc:javadoc
+...
 $ open target/site/apidocs/index.html
+...
 ```
 
 ## Unit tests
 
-Or look at some example usage snippets in our unit tests:
+Or look at some example usage snippets in our main Java sources and JUnit tests:
 
 ```
+vagrant$ mvn package
+...
+
+vagrant$ mvn -q exec:java -Dexec.mainClass=us.yellosoft.hello.HeadphonesAdvertiser
+This week only, buy Bose's elite headphones 50% off, at 125.0!
+Hurry before we're sold out, we only have 10 left!
+Get them now at http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp
+Customers remark, "Works on my machine." !
+
+vagrant$ tree src/main/java/
+...
+vagrant$ cat src/main/java/us/yellosoft/hello/HeadphonesAdvertiser.java
+...
+
 vagrant$ mvn test
+...
+
 vagrant$ tree src/test/java/
+...
 vagrant$ cat src/test/java/us/yellosoft/thrift/HeadphonesTest.java
+...
 ```
 
 In particular, `HeadphonesTest.java` defines several test cases for using Thrift objects:
@@ -111,14 +149,20 @@ We could manually lint each `.java` file with `javac -Xlint:all`, but for medium
 
 ```
 vagrant$ mvn compile
+...
+
 vagrant$ mvn test-compile
+...
 ```
 
 Then we run additional checks for scope and style, using Checkstyle and PMD:
 
 ```
 vagrant$ mvn checkstyle:checkstyle
+...
+
 vagrant$ mvn pmd:check
+...
 ```
 
 We've configured the Maven plugins to skip linting the Thrift-generated `.java` code, as we're not really in control of it, and the extra warnings could make it harder to see warnings in our normal `.java` code. Feel free to comment out some of the Maven configuration in `maven-replacer-plugin` to see the warnings.
@@ -129,8 +173,12 @@ Similarly, we've configured the Cobertura Maven plugin to ignore code coverage f
 
 ```
 vagrant$ mvn site
+...
+
+$ open target/site/cobertura/index.html
+...
 ```
 
-For now, Cobertura merely notes that there's nothing to cover--we've skipped coverage for Thrift-generated code, and unit tests aren't normally coveraged.
+This code coverages only our handwritten `.java` code, `HeadphonesAdvertiser.java`. Take a look at `target/site/cobertura/us.yellosoft.hello.HeadphonesAdvertiser.html` and see if you can spot the coverage mistake.
 
-Since we don't have any code in `src/main/java/`, code coverage is either 0% or 100%, depending how you interpret this.
+Hint: [Cucumber](https://github.com/cucumber) would be better for this sort of thing.)
