@@ -40,9 +40,9 @@ vagrant$ cat manifests/default.pp
 
 Feel free to use your host computer instead of Vagrant, installing the dependency packages manually, treating `vagrant$` as your computer's terminal prompt. Note, however, that the dependency package names may vary between package mangers. E.g. [Apt](https://wiki.debian.org/Apt) `thrift-compiler` = [Homebrew](http://brew.sh/) `thrift` = [Chocolatey](http://chocolatey.org/) `thrift`.
 
-## Examine Thrift project structures
+## Thrift project organization
 
-We start by looking at the source code and project structure.
+We start by looking at the overall project organization.
 
 ```
 vagrant$ tree src/
