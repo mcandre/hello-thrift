@@ -28,3 +28,11 @@ vagrant$ mvn test-compile
 vagrant$ mvn checkstyle:checkstyle
 vagrant$ mvn pmd:check
 ```
+
+## Coverage
+
+Keep the code coverage high:
+
+```
+vagrant$ mvn site
+```
