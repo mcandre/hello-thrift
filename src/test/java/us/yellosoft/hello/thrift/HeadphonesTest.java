@@ -1,4 +1,4 @@
-package us.yellosoft.thrift;
+package us.yellosoft.hello.thrift;
 
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.TDeserializer;

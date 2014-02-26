@@ -1,4 +1,4 @@
-namespace * us.yellosoft.thrift
+namespace * us.yellosoft.hello.thrift
 
 struct Headphones {
   1: required string brand = "Bose"; /* Brand name */
