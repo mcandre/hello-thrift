@@ -110,7 +110,7 @@ Since Java is a compiled language, we have a compile step:
 vagrant$ mvn compile
 ```
 
-Normal `.java` -> `.class` bytecode is kept in `target/classes/`, but our `.thrift` -> `.java` -> `.class` code is in `target/generated-classes/`. If you look in `pom.xml`, you will find a plugin configuration instructing Maven to treat `generated-classes/*.clss` as normal `classes/*.class`. Alternatively, we could have applied some `CLASSPATH` trickery, but life is too short for that nonsense.
+Normal `.java` -> `.class` bytecode is kept in `target/classes/`, but our `.thrift` -> `.java` -> `.class` code is in `target/generated-classes/`. If you look in `pom.xml`, you will find a plugin configuration instructing Maven to treat `generated-classes/*.class` as normal `classes/*.class`. Alternatively, we could have applied some `CLASSPATH` trickery, but life is too short for that nonsense.
 
 ```
 vagrant$ cat pom.xml
@@ -156,7 +156,7 @@ As a bonus, we wrote some plugin configuration to show how linting and code cove
 
 ## Linting
 
-Tthe Java compiler `javac` offers a valuable option to check for additional warnings at compile time with `-Xlint:all`. This Maven project is configured to do this automatically.
+The Java compiler `javac` offers a valuable option to check for additional warnings at compile time with `-Xlint:all`. This Maven project is configured to do this automatically.
 
 We could manually lint each `.java` file with `javac -Xlint:all`, but for medium to large projects, it's better to use Maven to do this over all Java files:
 
