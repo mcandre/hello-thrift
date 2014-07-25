@@ -196,3 +196,7 @@ $ open target/site/cobertura/index.html
 This code coverages only our handwritten `.java` code, `HeadphonesAdvertiser.java`. Take a look at `target/site/cobertura/us.yellosoft.hello.HeadphonesAdvertiser.html` and see if you can spot the coverage mistake.
 
 Hint: [Cucumber](https://github.com/cucumber) would be better for this sort of thing.)
+
+## Git Hooks
+
+See `hooks/`.
