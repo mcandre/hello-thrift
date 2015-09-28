@@ -1,0 +1,43 @@
+plugins {
+  id 'net.saliman.cobertura' version '2.2.8'
+  id 'com.github.johnrengelman.shadow' version '1.2.2'
+  id 'org.jruyi.thrift' version '0.3.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'org.jruyi.thrift'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'net.saliman.cobertura'
+
+compileJava {
+  options.compilerArgs << '-Xlint:all'
+}
+
+checkstyle {
+  configProperties = [configDir: "${rootDir}/config"]
+}
+
+pmd { consoleOutput = true }
+tasks.withType(Pmd) { exclude '**/thrift/**' }
+
+cobertura {
+  coverageExcludes = [ '.*\\.thrift\\..*' ]
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'us.yellosoft.hello.Hello'
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.apache.thrift:libthrift:0.9.0'
+
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.slf4j:slf4j-log4j12:1.7.12'
+}

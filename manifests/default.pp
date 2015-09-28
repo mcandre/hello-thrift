@@ -15,7 +15,7 @@ apt::ppa { 'ppa:wnoronha/thrift':
 }
 
 package { [
-  'maven',
+  'gradle',
   'openjdk-7-jdk',
   'thrift-compiler',
   'tree'

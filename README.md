@@ -1,4 +1,4 @@
-# hello-thrift - an example Maven project using Thrift
+# hello-thrift - an example Gradle project using Thrift
 
 # HOMEPAGE
 
@@ -21,7 +21,7 @@ This project is a small demonstration of what Thrift has to offer. We will use a
 In this scenario, we're developing a digital platform for selling headphones to command line users connected to ARPANET in the late '60s, a market often overlooked.
 
 ```
-vagrant$ mvn package
+vagrant$ gradle shadowJar
 ...
 
 vagrant$ bin/ad
@@ -84,47 +84,35 @@ vagrant$ tree src/
 
 `src/main/thrift/` contains `.thrift` definition files, defining the fields of our network data. Although this project is in Java, we could copy the `.thrift` files into a project in a different language, like Ruby, and they would behave the same way.
 
-Now that we have `.thrift` definitions for our data, we can convert them into `.java` code. A directory is created, with `.thrift` -> `.java` generated code in `target/generated-sources/`.
+Now that we have `.thrift` definitions for our data, we can convert them into `.java` code. A directory is created, with `.thrift` -> `.java` generated code in `build/generated-sources/`.
 
 ```
-vagrant$ mvn generate-sources
+vagrant$ gradle classes
 ...
 
-vagrant$ tree target/generated-sources/
-target/generated-sources/
-└── gen-java
-    └── us
-        └── yellosoft
-            └── hello
-                └── thrift
-                    └── Headphones.java
+vagrant$ tree build/generated-sources/
+build/generated-sources/
+└── thrift
+    └── gen-java
+        └── us
+            └── yellosoft
+                └── hello
+                    └── thrift
+                        └── Headphones.java
 
-5 directories, 1 file
+6 directories, 1 file
 ```
 
-We could have manually run `thrift --gen ...` to do this, though Maven wouldn't know where to look for the generated `.java` code when it comes time to compile.
-
-Since Java is a compiled language, we have a compile step:
-
-```
-vagrant$ mvn compile
-```
-
-Normal `.java` -> `.class` bytecode is kept in `target/classes/`, but our `.thrift` -> `.java` -> `.class` code is in `target/generated-classes/`. If you look in `pom.xml`, you will find a plugin configuration instructing Maven to treat `generated-classes/*.class` as normal `classes/*.class`. Alternatively, we could have applied some `CLASSPATH` trickery, but life is too short for that nonsense.
-
-```
-vagrant$ cat pom.xml
-...
-```
+We could have manually run `thrift --gen ...` to do this, though Gradle wouldn't know where to look for the generated `.java` code when it comes time to compile.
 
 ## API docs
 
 Now that we've got fully realized Thrift structures in Java, how do we interact with them? We could generate Javadocs for the Thrift structures:
 
 ```
-vagrant$ mvn javadoc:javadoc
+vagrant$ gradle javadoc
 ...
-$ open target/site/apidocs/index.html
+$ open build/docs/javadoc/index.html
 ...
 ```
 
@@ -133,7 +121,7 @@ $ open target/site/apidocs/index.html
 Or look at some example usage snippets in our main Java sources and JUnit tests:
 
 ```
-vagrant$ mvn test
+vagrant$ gradle test
 ...
 
 vagrant$ tree src/test/java/
@@ -162,38 +150,27 @@ We could manually lint each `.java` file with `javac -Xlint:all`, but for medium
 
 
 ```
-vagrant$ mvn compile
-...
-
-vagrant$ mvn test-compile
+vagrant$ gradle check
 ...
 ```
 
-Then we run additional checks for scope and style, using Checkstyle and PMD:
+This also runs additional checks for scope and style, using Checkstyle and PMD.
 
-```
-vagrant$ mvn checkstyle:checkstyle
-...
-
-vagrant$ mvn pmd:check
-...
-```
-
-We've configured the Maven plugins to skip linting the Thrift-generated `.java` code, as we're not really in control of it, and the extra warnings could make it harder to see warnings in our normal `.java` code. Feel free to comment out some of the Maven configuration in `maven-replacer-plugin` to see the warnings.
+We've configured the Gradle plugins to skip linting the Thrift-generated `.java` code, as we're not really in control of it, and the extra warnings could make it harder to see warnings in our normal `.java` code. Feel free to comment out some of the Maven configuration in `build.gradle` to see the warnings.
 
 ## Coverage
 
-Similarly, we've configured the Cobertura Maven plugin to ignore code coverage for Thrift-generated `.java` code. We don't expect to execute some sections of low-level code, mostly calling setters and getters.
+Similarly, we've configured the Cobertura Gradle plugin to ignore code coverage for Thrift-generated `.java` code. We don't expect to execute some sections of low-level code, mostly calling setters and getters.
 
 ```
-vagrant$ mvn site
+vagrant$ gradle cobertura
 ...
 
-$ open target/site/cobertura/index.html
+$ open build/reports/cobertura/index.html
 ...
 ```
 
-This code coverages only our handwritten `.java` code, `HeadphonesAdvertiser.java`. Take a look at `target/site/cobertura/us.yellosoft.hello.HeadphonesAdvertiser.html` and see if you can spot the coverage mistake.
+This code coverages only our handwritten `.java` code, `HeadphonesAdvertiser.java`. Take a look at `us.yellosoft.hello.HeadphonesAdvertiser` and see if you can spot the coverage mistake.
 
 Hint: [Cucumber](https://github.com/cucumber) would be better for this sort of thing.)
 
