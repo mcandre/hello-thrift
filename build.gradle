@@ -19,7 +19,7 @@ checkstyle {
 }
 
 pmd { consoleOutput = true }
-tasks.withType(Pmd) { exclude '**/thrift/**' }
+pmdMain { exclude '**/thrift/**' }
 
 cobertura {
   coverageExcludes = [ '.*\\.thrift\\..*' ]
