@@ -160,13 +160,13 @@ We've configured the Gradle plugins to skip linting the Thrift-generated `.java`
 
 ## Coverage
 
-Similarly, we've configured the Cobertura Gradle plugin to ignore code coverage for Thrift-generated `.java` code. We don't expect to execute some sections of low-level code, mostly calling setters and getters.
+Similarly, we've configured the Jacoco Gradle plugin to ignore code coverage for Thrift-generated `.java` code. We don't expect to execute some sections of low-level code, mostly calling setters and getters.
 
 ```
-vagrant$ gradle cobertura
+vagrant$ gradle test jacoco
 ...
 
-$ open build/reports/cobertura/index.html
+$ open build/reports/jacoco/test/html/index.html
 ...
 ```
 
