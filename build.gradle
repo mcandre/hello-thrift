@@ -7,7 +7,7 @@ apply plugin: 'java'
 apply plugin: 'org.jruyi.thrift'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'net.saliman.cobertura'
+apply plugin: 'jacoco'
 
 compileJava {
   options.compilerArgs << '-Xlint:all'
