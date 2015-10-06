@@ -1,6 +1,6 @@
 plugins {
   id 'com.github.johnrengelman.shadow' version '1.2.2'
-  id 'org.jruyi.thrift' version '0.3.0'
+  id 'org.jruyi.thrift' version '0.3.1'
 }
 
 apply plugin: 'java'
@@ -23,7 +23,15 @@ checkstyle {
 pmd { consoleOutput = true }
 pmdMain { exclude '**/thrift/**' }
 
-jacoco { excludes = [ '.*\\.thrift\\..*' ] }
+jacocoTestReport {
+  afterEvaluate {
+    classDirectories = files(
+      classDirectories.files.collect {
+        fileTree(dir: it, exclude: '**/thrift/**')
+      }
+    )
+  }
+}
 
 jar {
   manifest {
