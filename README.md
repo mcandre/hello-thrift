@@ -49,6 +49,12 @@ vagrant$ cat src/main/java/us/yellosoft/hello/HeadphonesAdvertiser.java
 * [Vagrant](http://www.vagrantup.com/)
 * [VirtualBox](https://www.virtualbox.org/)
 
+## Optional
+
+* [Sonar](http://www.sonarqube.org/)
+
+E.g., `brew install gradle sonar sonar-runner`
+
 # EXAMPLE
 
 ## Setup development environment
@@ -157,6 +163,14 @@ vagrant$ gradle check
 This also runs additional checks for scope and style, using Checkstyle and PMD.
 
 We've configured the Gradle plugins to skip linting the Thrift-generated `.java` code, as we're not really in control of it, and the extra warnings could make it harder to see warnings in our normal `.java` code. Feel free to comment out some of the Maven configuration in `build.gradle` to see the warnings.
+
+### Optional: Sonar
+
+```
+$ sonar start
+$ gradle check sonar
+$ open http://localhost:9000/
+```
 
 ## Coverage
 
