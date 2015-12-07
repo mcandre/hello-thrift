@@ -7,6 +7,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'org.jruyi.thrift'
 apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
 apply plugin: 'pmd'
 apply plugin: 'jacoco'
 
@@ -19,6 +20,18 @@ compileJava {
 checkstyle {
   configFile = "${rootProject.projectDir}/config/checkstyle/checkstyle.xml" as File
   configProperties = [configDir: "${rootProject.projectDir}/config"]
+}
+
+findbugs {
+    sourceSets = [sourceSets.main]
+    excludeFilter = "${rootProject.projectDir}/config/findbugs/excludes.xml" as File
+}
+
+tasks.withType(FindBugs) {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
 }
 
 pmd { consoleOutput = true }

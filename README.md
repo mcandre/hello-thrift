@@ -164,6 +164,13 @@ This also runs additional checks for scope and style, using Checkstyle and PMD.
 
 We've configured the Gradle plugins to skip linting the Thrift-generated `.java` code, as we're not really in control of it, and the extra warnings could make it harder to see warnings in our normal `.java` code. Feel free to comment out some of the Maven configuration in `build.gradle` to see the warnings.
 
+### Optional: FindBugs
+
+```
+$ gradle check
+$ open build/reports/findbugs/main.html
+```
+
 ### Optional: Sonar
 
 ```
