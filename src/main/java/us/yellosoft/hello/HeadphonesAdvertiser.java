@@ -12,11 +12,22 @@ public final class HeadphonesAdvertiser {
       @return an advertisement
    */
   public static String advertise(final Headphones headphones) {
-    return "This week only, buy " + headphones.getBrand() + "\'s elite headphones 50% off, " +
-      "at " + headphones.getPrice() + "!\n" +
-      "Hurry before we're sold out, we only have " + headphones.getQuantity() + " left!\n" +
-      "Get them now at " + headphones.getUrl() + "\n" +
-      "Customers remark, \"" + headphones.getReview() + "\" !";
+    return String.format(
+      String.join(
+        "\n",
+        new String[] {
+          "This week only, buy %s\'s elite headphones 50%% off, at %.2f!",
+          "Hurry before we're sold out, we only have %d left!",
+          "Get them now at %s",
+          "Customers remark, \"%s\" !"
+        }
+      ),
+      headphones.getBrand(),
+      headphones.getPrice(),
+      headphones.getQuantity(),
+      headphones.getUrl(),
+      headphones.getReview()
+    );
   }
 
   /** CLI entry point

@@ -29,6 +29,6 @@ public class HeadphonesAdvertiserTest {
   public void advertiserTest() {
     final String ad = HeadphonesAdvertiser.advertise(h);
 
-    assertEquals(ad, "This week only, buy Bose\'s elite headphones 50% off, at 125.0!\nHurry before we\'re sold out, we only have 10 left!\nGet them now at http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp\nCustomers remark, \"Works on my machine.\" !");
-  }    
+    assertEquals(ad, "This week only, buy Bose\'s elite headphones 50% off, at 125.00!\nHurry before we\'re sold out, we only have 10 left!\nGet them now at http://www.bose.com/controller?url=/shop_online/headphones/wireless_headphones/ae2w_headphones/index.jsp\nCustomers remark, \"Works on my machine.\" !");
+  }
 }
