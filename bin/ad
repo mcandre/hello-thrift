@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/sh
 java -cp "${0%/*}"/../build/libs/hello-thrift-all.jar us.yellosoft.hello.HeadphonesAdvertiser "$@"

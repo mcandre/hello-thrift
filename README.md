@@ -54,8 +54,6 @@ vagrant$ cat src/main/java/us/yellosoft/hello/HeadphonesAdvertiser.java
 * [Sonar](http://www.sonarqube.org/)
 * [Infer](http://fbinfer.com/)
 
-E.g., `brew install gradle sonar sonar-runner infer`
-
 # EXAMPLE
 
 ## Setup development environment
