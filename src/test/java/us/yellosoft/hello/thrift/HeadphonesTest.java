@@ -156,5 +156,5 @@ public class HeadphonesTest {
     catch (TException e) {
       throw new Exception(e);
     }
-  }    
+  }
 }

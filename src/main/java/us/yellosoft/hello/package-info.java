@@ -1,4 +1,4 @@
 /**
-   Thrift example
+ * Thrift example
  */
 package us.yellosoft.hello;
