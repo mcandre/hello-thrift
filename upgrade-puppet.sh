@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+set -euo pipefail
 
 apt-get install --yes lsb-release > /dev/null
 DISTRIB_CODENAME=$(lsb_release --codename --short)
