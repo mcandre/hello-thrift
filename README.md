@@ -20,7 +20,7 @@ This project is a small demonstration of what Thrift has to offer. We will use a
 
 In this scenario, we're developing a digital platform for selling headphones to command line users connected to ARPANET in the late '60s, a market often overlooked.
 
-```
+```console
 vagrant$ gradle shadowJar
 ...
 
@@ -33,7 +33,7 @@ Customers remark, "Works on my machine." !
 
 Check out the source if you like:
 
-```
+```console
 vagrant$ tree bin/
 vagrant$ cat bin/ad
 ...
@@ -53,8 +53,11 @@ vagrant$ cat src/main/java/us/yellosoft/hello/HeadphonesAdvertiser.java
 
 * [Sonar](http://www.sonarqube.org/)
 * [Infer](http://fbinfer.com/)
-* [editorconfig-cli](https://github.com/amyboyd/editorconfig-cli) (e.g. `go get github.com/amyboyd/editorconfig-cli`)
-* [flcl](https://github.com/mcandre/flcl) (e.g. `go get github.com/mcandre/flcl/...`)
+* [Python](https://www.python.org/) 3+
+* [GHC Haskell](https://www.haskell.org/) 8+
+* [Go](https://golang.org/) 1.9+
+* [GNU make](https://www.gnu.org/software/make/)
+* [checkbashisms](https://sourceforge.net/projects/checkbaskisms/)
 
 # EXAMPLE
 
@@ -62,7 +65,7 @@ vagrant$ cat src/main/java/us/yellosoft/hello/HeadphonesAdvertiser.java
 
 Once Vagrant and VirtualBox are installed, use Vagrant to setup a virtual machine (vm).
 
-```
+```console
 $ vagrant up
 ...
 
@@ -73,7 +76,7 @@ vagrant$
 
 For the curious, you can examine `manifests/default.pp` to see the dependency packages that Vagrant installed in the vm.
 
-```
+```console
 vagrant$ cat manifests/default.pp
 ...
 ```
@@ -84,7 +87,7 @@ Feel free to use your host computer instead of Vagrant, installing the dependenc
 
 We start by looking at the overall project organization.
 
-```
+```console
 vagrant$ tree src/
 ...
 ```
@@ -93,7 +96,7 @@ vagrant$ tree src/
 
 Now that we have `.thrift` definitions for our data, we can convert them into `.java` code. A directory is created, with `.thrift` -> `.java` generated code in `build/generated-sources/`.
 
-```
+```console
 vagrant$ gradle classes
 ...
 
@@ -116,7 +119,7 @@ We could have manually run `thrift --gen ...` to do this, though Gradle wouldn't
 
 Now that we've got fully realized Thrift structures in Java, how do we interact with them? We could generate Javadocs for the Thrift structures:
 
-```
+```console
 vagrant$ gradle javadoc
 ...
 $ open build/docs/javadoc/index.html
@@ -127,7 +130,7 @@ $ open build/docs/javadoc/index.html
 
 Or look at some example usage snippets in our main Java sources and JUnit tests:
 
-```
+```console
 vagrant$ gradle test
 ...
 
@@ -156,7 +159,7 @@ The Java compiler `javac` offers a valuable option to check for additional warni
 We could manually lint each `.java` file with `javac -Xlint:all`, but for medium to large projects, it's better to use Maven to do this over all Java files:
 
 
-```
+```console
 vagrant$ gradle check
 ...
 ```
@@ -167,14 +170,14 @@ We've configured the Gradle plugins to skip linting the Thrift-generated `.java`
 
 ### Optional: FindBugs
 
-```
+```console
 $ gradle check
 $ open build/reports/findbugs/main.html
 ```
 
 ### Optional: Sonar
 
-```
+```console
 $ sonar start
 $ gradle check sonar
 $ open http://localhost:9000/
@@ -182,7 +185,7 @@ $ open http://localhost:9000/
 
 ## Optional: Infer
 
-```
+```console
 $ infer -- gradle clean build
 ```
 
@@ -191,7 +194,7 @@ $ infer -- gradle clean build
 
 Similarly, we've configured the Jacoco Gradle plugin to ignore code coverage for Thrift-generated `.java` code. We don't expect to execute some sections of low-level code, mostly calling setters and getters.
 
-```
+```console
 vagrant$ gradle test jacoco
 ...
 
