@@ -1,2 +1,6 @@
 #!/bin/sh
+set -eu
+IFS="$(printf '%b_' '\n\t ')"
+IFS="${IFS%_}"
+
 java -cp "${0%/*}"/../build/libs/hello-thrift-all.jar us.yellosoft.hello.HeadphonesAdvertiser "$@"

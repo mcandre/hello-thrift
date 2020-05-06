@@ -1,5 +1,7 @@
 #!/bin/bash
 set -euo pipefail
+IFS="$(printf '%b_' '\n\t ')"
+IFS="${IFS%_}"
 
 apt-get install --yes lsb-release >/dev/null
 DISTRIB_CODENAME=$(lsb_release --codename --short)
